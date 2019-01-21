@@ -17,12 +17,16 @@ import { Link } from 'react-router-dom';
 //     }
 // }
 const Header = (props) => (
-    <div className="container">
-        <div className="container-fluid">
-            <h1><Link to="/">ChatRoom</Link></h1>
-        </div>
-         {props.children}
-    </div>
+	<div className="row">
+		<div className="col-md-2 left-block">☆</div>
+	    <div className="col-md-8 center-block">
+	        <div className="container-fluid">
+	            <h1><Link to="/">ChatRoom</Link></h1>
+	        </div>
+	         {props.children}
+	    </div>
+		<div className="col-md-2 right-block">★</div>
+	</div>
 )
 
 // Header.propTypes = {

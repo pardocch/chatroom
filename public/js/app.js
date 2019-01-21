@@ -664,7 +664,7 @@ var createPath = function createPath(location) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(84);
 /* unused harmony reexport Redirect */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(32);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* unused harmony reexport Route */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(16);
 /* unused harmony reexport Router */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(85);
@@ -16161,6 +16161,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Room__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Header__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Chat__ = __webpack_require__(93);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 // app.js
 
 __webpack_require__(42);
@@ -16173,19 +16181,68 @@ __webpack_require__(42);
 
 
 
-var App = function App() {
-	return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-		'div',
-		null,
-		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Header__["a" /* default */], null),
-		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Room__["a" /* default */], null),
-		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */], { path: '/rooms/:rooms', component: __WEBPACK_IMPORTED_MODULE_5__components_Chat__["a" /* default */] })
-	);
-};
+var App = function (_Component) {
+	_inherits(App, _Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (App);
+	function App(props) {
+		_classCallCheck(this, App);
 
-Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+		_this.state = {
+			data: '',
+			room: '',
+			isClicked: false,
+			count: 1
+		};
+		_this.switchRoom.bind();
+		_this.handleRoom.bind();
+		return _this;
+	}
+
+	_createClass(App, [{
+		key: 'switchRoom',
+		value: function switchRoom(text) {
+			this.setState({
+				data: text
+			});
+			if (this.state.isClicked) {
+				this.setState({
+					isClicked: false
+				});
+			}
+		}
+	}, {
+		key: 'handleRoom',
+		value: function handleRoom(room) {
+			this.setState({
+				room: room,
+				isClicked: true
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Header__["a" /* default */], null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Room__["a" /* default */], { content: this.state.data, room: this.state.room, handleRoom: function handleRoom(room) {
+						_this2.handleRoom(room);
+					} }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Chat__["a" /* default */], { isClicked: this.state.isClicked, room: this.state.room, switchRoom: function switchRoom(text) {
+						_this2.switchRoom(text);
+					} })
+			);
+		}
+	}]);
+
+	return App;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 	__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */],
 	null,
 	__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(App, null)
@@ -61034,17 +61091,39 @@ var Room = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Room.__proto__ || Object.getPrototypeOf(Room)).call(this, props));
 
 		_this.state = {
-			itemdata: ''
+			itemdata: '',
+			content: '',
+			data: {
+				message: '',
+				roomid: '',
+				userid: '',
+				type: 'connect'
+			},
+			scontent: []
 		};
+		_this.handleContent = _this.handleContent.bind(_this);
+		_this.send = _this.send.bind(_this);
 		return _this;
 	}
 
 	_createClass(Room, [{
-		key: 'getAllList',
-		value: function getAllList() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			var _this2 = this;
 
-			fetch('http://localhost:8727/room', {
+			this.getAllList();
+			this.wsServer = 'ws://127.0.0.1:9501';
+			this.websocket = new WebSocket(this.wsServer);
+			this.websocket.onmessage = function (evt) {
+				_this2.appendMessage(evt.data, 'other');
+			};
+		}
+	}, {
+		key: 'getAllList',
+		value: function getAllList() {
+			var _this3 = this;
+
+			fetch('http://' + window.location.host + '/room', {
 				method: 'GET'
 			}).then(function (response) {
 				//ok 代表狀態碼在範圍 200-299
@@ -61052,7 +61131,7 @@ var Room = function (_Component) {
 				return response.json();
 			}).then(function (itemList) {
 				//  載入資料，重新渲染
-				_this2.setState({
+				_this3.setState({
 					itemdata: itemList
 				});
 			}).catch(function (error) {
@@ -61061,30 +61140,121 @@ var Room = function (_Component) {
 			});
 		}
 	}, {
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			this.getAllList();
+		key: 'handleRoom',
+		value: function handleRoom(room) {
+			this.props.handleRoom(room);
+		}
+	}, {
+		key: 'handleContent',
+		value: function handleContent(event) {
+			this.setState({
+				content: event.target.value,
+				data: {
+					message: event.target.value,
+					roomid: this.props.room,
+					userid: '',
+					type: 'message'
+				}
+			});
+		}
+	}, {
+		key: 'send',
+		value: function send() {
+			this.inputContent.value = '';
+			this.websocket.send(JSON.stringify(this.state.data));
+			this.appendMessage(this.state.data.message, 'self');
+		}
+	}, {
+		key: 'appendMessage',
+		value: function appendMessage(message, target) {
+			var newcontent = this.state.scontent;
+			newcontent.push({ 'target': target, 'message': message });
+			this.setState({
+				scontent: newcontent
+			});
+		}
+	}, {
+		key: 'insertMessage',
+		value: function insertMessage() {
+			var table = [];
+			this.state.scontent.forEach(function (obj, i) {
+				var element = void 0;
+				switch (obj.target) {
+					case 'self':
+						element = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'chat-block', key: i }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-md-offset-6 col-md-6 mf' }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'mt' }, obj.message)));
+						break;
+					case 'other':
+						element = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'chat-block', key: i }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'cf' }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'ct' }, obj.message)));
+						break;
+				}
+				table.push(element);
+			});
+			return table;
 		}
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this4 = this;
+
 			var itemdatalen = Object.keys(this.state.itemdata).length;
 			var itemdata = this.state.itemdata;
-			// console.log(itemdata);
+			var content = this.props.content;
+			// this.insertMessage();
+
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
-				{ className: 'container' },
-				(typeof itemdata === 'undefined' ? 'undefined' : _typeof(itemdata)) == 'object' ? Object.keys(itemdata).map(function (obj, i) {
-					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
-						{ to: '/rooms/' + i, key: obj, style: { color: 'white' } },
+				{ className: 'row' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'col-md-2' },
+					(typeof itemdata === 'undefined' ? 'undefined' : _typeof(itemdata)) == 'object' ? Object.keys(itemdata).map(function (obj, i) {
+						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
+							{ to: '/rooms/' + i, key: obj, style: { color: 'white' } },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								null,
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'span',
+									{ className: 'btn-room', onClick: function onClick() {
+											_this4.handleRoom(i);
+										}, rooms: itemdata[obj], key: obj },
+									itemdata[obj]
+								)
+							)
+						);
+					}) : ''
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'col-md-8 center-block' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'chat-contain-field' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'chat-contain-field-border' },
+							this.insertMessage()
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'chat-text-field' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'chat-text-box', cols: '30', rows: '3', ref: function ref(el) {
+								return _this4.inputContent = el;
+							}, onChange: this.handleContent })
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'chat-toolbar-field' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'button',
-							{ className: 'btn btn-primary btn-room', rooms: itemdata[obj], key: obj },
-							itemdata[obj]
+							{ className: 'btn btn-primary sendbtn', onClick: this.send },
+							'send'
 						)
-					);
-				}) : ''
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-md-2 right-block' })
 			);
 		}
 	}]);
@@ -61122,24 +61292,38 @@ var Room = function (_Component) {
 //     }
 // }
 var Header = function Header(props) {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'container' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'container-fluid' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'h1',
-                null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
-                    { to: '/' },
-                    'ChatRoom'
-                )
-            )
-        ),
-        props.children
-    );
+	return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+		'div',
+		{ className: 'row' },
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'col-md-2 left-block' },
+			'\u2606'
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'col-md-8 center-block' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'container-fluid' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h1',
+					null,
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
+						{ to: '/' },
+						'ChatRoom'
+					)
+				)
+			),
+			props.children
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'col-md-2 right-block' },
+			'\u2605'
+		)
+	);
 };
 
 // Header.propTypes = {
@@ -61181,33 +61365,33 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Chat = function (_Component) {
     _inherits(Chat, _Component);
 
-    function Chat() {
+    function Chat(props) {
         _classCallCheck(this, Chat);
 
-        var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this));
+        var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
 
         _this.state = {
             repos: [],
             data: '',
             isClicked: false
         };
-
+        _this.returnContent = _this.returnContent.bind(_this, '');
         return _this;
     }
 
     _createClass(Chat, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            var rooms = this.props.match.params.rooms;
+            var room = this.props.room;
 
-            this.setState({ repos: rooms });
+            this.setState({ repos: room });
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             if (this.state.repos.length !== 0) {
                 if (this.state.isClicked === false) {
-                    this.getRooms('http://localhost:8727/room/' + this.state.repos);
+                    this.getRooms('http://' + window.location.host + '/room/' + this.state.repos.room);
                 }
             }
         }
@@ -61215,10 +61399,10 @@ var Chat = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(next) {
             this.setState({
-                repos: next.match.params.rooms,
+                repos: next.room,
                 isClicked: false
             });
-            this.getRooms('http://localhost:8727/room/' + next.match.params.rooms);
+            this.getRooms('http://' + window.location.host + '/room/' + next.room);
         }
     }, {
         key: 'getRooms',
@@ -61236,6 +61420,10 @@ var Chat = function (_Component) {
                                 });
 
                             case 2:
+
+                                if (this.props.isClicked) this.returnContent();
+
+                            case 3:
                             case 'end':
                                 return _context.stop();
                         }
@@ -61250,13 +61438,14 @@ var Chat = function (_Component) {
             return getRooms;
         }()
     }, {
+        key: 'returnContent',
+        value: function returnContent() {
+            this.props.switchRoom(this.state.data);
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                'div',
-                { className: 'container' },
-                this.state.data
-            );
+            return null;
         }
     }]);
 

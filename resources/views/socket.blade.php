@@ -97,9 +97,7 @@
     let room_id = '';
     let user_id = '';
 
-    // let wsServer = 'ws://127.0.0.1:9501';
-    // let wsServer = 'ws://192.168.0.126:9501';
-    let wsServer = 'ws://3b9fb9c2.ngrok.io'
+    let wsServer = 'ws://127.0.0.1:9501';
     let websocket = new WebSocket(wsServer);
     websocket.onopen = function (evt) {
         console.log("成功連接到 WebSocket 服務");

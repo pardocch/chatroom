@@ -39,6 +39,11 @@ class RoomController extends Controller
     	return redirect()->action('RoomController@room', ['id' => $id]);
     }
 
+    public function save()
+    {
+        
+    }
+
     /**
      * test
      */

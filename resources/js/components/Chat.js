@@ -6,45 +6,50 @@ import axios from 'axios'
 
 class Chat extends Component
 {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             repos: [],
             data: '',
             isClicked: false
         }
-
+        this.returnContent = this.returnContent.bind(this, '');
     }
 
     componentWillMount() {
-        const {rooms} = this.props.match.params
-        this.setState({ repos: rooms })
-
+        const {room} = this.props;
+        this.setState({ repos: room });
     }
 
     componentDidMount() {
         if (this.state.repos.length !== 0) {
             if (this.state.isClicked === false) {
-                this.getRooms(`http://localhost:8727/room/${this.state.repos}`)
+                this.getRooms(`http://${window.location.host}/room/${this.state.repos.room}`)
             }
         }
     }
 
     componentWillReceiveProps(next) {
         this.setState({
-            repos: next.match.params.rooms,
+            repos: next.room,
             isClicked: false
         })
-        this.getRooms(`http://localhost:8727/room/${next.match.params.rooms}`)
+        this.getRooms(`http://${window.location.host}/room/${next.room}`)
     }
 
     async getRooms(url) {
         await axios.get(url).then((response) => { this.setState({ data: response.data, isClicked: true }) })
+        
+        if (this.props.isClicked) this.returnContent();
+    }
+
+    returnContent() {
+        this.props.switchRoom(this.state.data);
     }
 
     render() {
         return(
-            <div className="container">{this.state.data}</div>
+            null
         )
     }
 }

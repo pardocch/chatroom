@@ -23,3 +23,9 @@ Route::post('room/{id}', 'RoomController@create');
 Route::get('test', 'RoomController@test');
 
 Route::get('leave', 'RoomController@leave');
+
+// User behavior
+Route::get('/register', 'UserController@register');
+Route::post('/register', 'UserController@create');
+Route::get('/login', 'UserController@login');
+Route::post('/login', 'UserController@logging');

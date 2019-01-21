@@ -1,4 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+
+/*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -10478,8 +10480,91 @@ a.text-dark:focus {
 }
 
 .btn-room {
-  margin: 0px 5px;
-  min-width: 100px;
-  min-height: 100px;
+  border-bottom: 1px solid #8c8c8c;
+  color: black;
+  display: block;
+  text-align: center;
+  min-height: 50px;
+}
+
+.chat-contain-field {
+  text-align: center;
+}
+
+.chat-contain-field-border {
+  border: 1px solid #9d9d9d;
+  max-height: 80vh;
+  min-height: 80vh;
+  background-color: #f0f0f0;
+  padding: 10px 10px;
+  overflow-y: scroll;
+}
+
+/* first */
+
+.chat-block {
+  clear: both;
+}
+
+/* 其他人的留言 */
+
+.cf {
+  border-bottom-right-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+  border-bottom-left-radius: 1.3em;
+  border-top-left-radius: 1.3em;
+  max-width: 50%;
+  margin-bottom: 5px;
+  background-color: #5a6268;
+  color: white;
+}
+
+.ct {
+  text-align: left;
+  padding: 10px 30px;
+}
+
+/* 自己的留言 */
+
+.mf {
+  float: right;
+  border-bottom-right-radius: 1.3em;
+  border-top-right-radius: 1.3em;
+  border-bottom-left-radius: 1.3em;
+  border-top-left-radius: 1.3em;
+  max-width: 50%;
+  margin-bottom: 5px;
+  background-color: #2779bd;
+  color: white;
+}
+
+.mt {
+  text-align: right;
+  padding: 10px 30px;
+}
+
+/*發送欄*/
+
+.chat-text-field {
+  margin-top: -1px;
+  text-align: center;
+}
+
+.chat-text-box {
+  width: 100%;
+  resize: none;
+}
+
+.sendbtn {
+  display: inline-block;
+}
+
+/*工具欄*/
+
+.chat-toolbar-field {
+  text-align: right;
+  border: 1px solid #9d9d9d;
+  margin-top: -10px;
+  padding: 10px 10px;
 }
 
