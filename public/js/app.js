@@ -16192,8 +16192,7 @@ var App = function (_Component) {
 		_this.state = {
 			data: '',
 			room: '',
-			isClicked: false,
-			count: 1
+			isClicked: false
 		};
 		_this.switchRoom.bind();
 		_this.handleRoom.bind();
@@ -61196,30 +61195,26 @@ var Room = function (_Component) {
 		value: function render() {
 			var _this4 = this;
 
-			var itemdatalen = Object.keys(this.state.itemdata).length;
 			var itemdata = this.state.itemdata;
-			var content = this.props.content;
-			// this.insertMessage();
-
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'row' },
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{ className: 'col-md-2' },
-					(typeof itemdata === 'undefined' ? 'undefined' : _typeof(itemdata)) == 'object' ? Object.keys(itemdata).map(function (obj, i) {
+					(typeof itemdata === 'undefined' ? 'undefined' : _typeof(itemdata)) == 'object' ? itemdata.map(function (obj, i) {
 						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
-							{ to: '/rooms/' + i, key: obj, style: { color: 'white' } },
+							{ to: '/room/' + JSON.parse(obj).roomid, key: i, style: { color: 'white' } },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'div',
 								null,
 								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 									'span',
 									{ className: 'btn-room', onClick: function onClick() {
-											_this4.handleRoom(i);
-										}, rooms: itemdata[obj], key: obj },
-									itemdata[obj]
+											_this4.handleRoom(JSON.parse(obj).roomid);
+										}, rooms: JSON.parse(obj).roomid, key: JSON.parse(obj).roomid },
+									JSON.parse(obj).roomname
 								)
 							)
 						);

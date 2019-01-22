@@ -10,38 +10,44 @@ class RoomController extends Controller
 {
 	public function index() 
 	{
-        $userArray = array();
+        // $userArray = array();
 
-        $userList = Redis::keys('user:profile:*');
-        $countuserList = count($userList);
+        // $userList = Redis::keys('user:profile:*');
+        // $countuserList = count($userList);
 
-        for ($i=0; $i < $countuserList; $i++){
-            $userArray['user:profile:'.$i] = Redis::get('user:profile:'.$i);
-        }
+        // for ($i=0; $i < $countuserList; $i++){
+        //     $userArray['user:profile:'.$i] = Redis::get('user:profile:'.$i);
+        // }
 
-        return $userArray;
-		// return view('room/index', compact('userList'));
+        // return $userArray;
+
+        $allroom = Redis::smembers('room');
+
+        return $allroom;
 	}
 
     public function room($id=0) 
     {
-        $user = Redis::get('user:profile:'.$id);
-        return $user;
-        // return view('room/create', compact('id'));
-    }
-
-    public function create(Request $request, $id=0)
-    {
-    	$input_value = $request->input('firstname');
-    	echo $input_value;
-
-    	Redis::set('user:profile:'.$id, $input_value);
-    	return redirect()->action('RoomController@room', ['id' => $id]);
-    }
-
-    public function save()
-    {
+        // $user = Redis::get('user:profile:'.$id);
         
+        // return $user;
+
+        return view('Welcome');
+    }
+
+    public function createPage()
+    {
+        return view('room.create');
+    }
+
+    public function create(Request $request)
+    {
+        $roomid = md5(microtime());
+        $roomname = $request->input('firstname');
+        $roomObj = new \stdClass;
+        $roomObj->roomid = $roomid;
+        $roomObj->roomname = $roomname;
+        Redis::sadd('room', json_encode($roomObj, JSON_UNESCAPED_SLASHES));
     }
 
     /**

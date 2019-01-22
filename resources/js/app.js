@@ -20,7 +20,6 @@ class App extends Component {
 			data: '',
 			room: '',
 			isClicked: false,
-			count: 1,
 		}
 		this.switchRoom.bind();
 		this.handleRoom.bind();

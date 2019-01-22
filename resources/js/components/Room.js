@@ -125,17 +125,14 @@ class Room extends Component {
 	}
 
 	render() {
-		let itemdatalen = Object.keys(this.state.itemdata).length;
 		let itemdata = this.state.itemdata;
-		let {content} = this.props;
-		// this.insertMessage();
 		return (
 			<div className="row">
 				<div className="col-md-2">
 					{(typeof(itemdata) == 'object') ?
-						Object.keys(itemdata).map((obj, i) => 
-						<Link to={'/rooms/'+i} key={obj} style={{color: 'white'}}>
-						<div><span className="btn-room" onClick={ () => { this.handleRoom(i) }} rooms={itemdata[obj]} key={obj}>{itemdata[obj]}</span></div>
+						itemdata.map((obj, i) => 
+						<Link to={'/room/'+JSON.parse(obj).roomid} key={i} style={{color: 'white'}}>
+						<div><span className="btn-room" onClick={ () => { this.handleRoom(JSON.parse(obj).roomid) }} rooms={JSON.parse(obj).roomid} key={JSON.parse(obj).roomid}>{JSON.parse(obj).roomname}</span></div>
 						</Link>) : ''
 					}
 				</div>

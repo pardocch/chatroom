@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('room', 'RoomController@index');
-Route::get('room/{id}', 'RoomController@room');
+Route::get('room', 'RoomController@index'); // get all list of rooms
+Route::get ('create', 'RoomController@createPage'); // create page
+Route::post('room', 'RoomController@create'); // create data
+Route::get('room/{id}', 'RoomController@room'); // get specific data
 
-Route::post('room/{id}', 'RoomController@create');
+
 
 Route::get('test', 'RoomController@test');
 
