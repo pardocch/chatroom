@@ -32,7 +32,7 @@ class RoomController extends Controller
         
         // return $user;
 
-        return view('Welcome');
+        return view('welcome');
     }
 
     public function createPage()
