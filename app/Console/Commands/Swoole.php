@@ -79,8 +79,27 @@ class Swoole extends Command
         });
 
         $ws->on('message', function($ws, $frame){
-           echo "Message: {$frame->data}\n";
-           $ws->push($frame->fd, $frame->data);
+        //    echo "Message: {$frame->data}\n";
+        //    $ws->push($frame->fd, $frame->data);
+            $data = json_decode($frame->data, true);
+            $m = file_get_contents( __DIR__ .'/log.txt');
+            switch ($data['type']) {
+                case 'connect':
+                    
+                    break;
+                case 'message':
+
+                    for ($i=1; $i <= $m; $i++) { 
+                        if ($ws->exist($i) && $frame->fd !== $i) {
+                            // echo PHP_EOL.' i is '.$i.' data is '.$data['message'].' m = '.$m;
+                            $ws->push($i, $data['message']);
+                        }
+                    }
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         });
 
         $ws->on('close', function($ws, $fd){
