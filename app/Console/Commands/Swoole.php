@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
 
-class Swoole1 extends Command
+class Swoole extends Command
 {
     /**
      * The name and signature of the console command.
